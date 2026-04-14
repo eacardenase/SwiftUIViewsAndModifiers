@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - CustomTitle
+
 struct CustomTitle: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -24,6 +26,32 @@ extension View {
     }
 }
 
+// MARK: - Watermark
+
+struct Watermark: ViewModifier {
+    let text: String
+
+    func body(content: Content) -> some View {
+        ZStack(alignment: .bottomTrailing) {
+            content
+
+            Text(text)
+                .font(.caption)
+                .foregroundStyle(.white)
+                .padding(5)
+                .background(.black.mix(with: .white, by: 0.5))
+        }
+    }
+}
+
+extension View {
+    func watermarked(with text: String) -> some View {
+        modifier(Watermark(text: text))
+    }
+}
+
+// MARK: - CapsuleText
+
 struct CapsuleText: View {
     let text: String
 
@@ -40,6 +68,9 @@ struct ContentView: View {
 
             CapsuleText(text: "Second")
         }
+        .frame(width: 300, height: 300)
+        .border(.black)
+        .watermarked(with: "Crafting Hands")
     }
 }
 
