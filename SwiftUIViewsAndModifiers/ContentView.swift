@@ -18,12 +18,18 @@ struct CustomTitle: ViewModifier {
     }
 }
 
+extension View {
+    func customTitleStyle() -> some View {
+        modifier(CustomTitle())
+    }
+}
+
 struct CapsuleText: View {
     let text: String
 
     var body: some View {
         Text(text)
-            .modifier(CustomTitle())
+            .customTitleStyle()
     }
 }
 
