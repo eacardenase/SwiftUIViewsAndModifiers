@@ -13,11 +13,17 @@ struct GridStack<Content: View>: View {
     let content: (Int, Int) -> Content
 
     var body: some View {
-        VStack {
-            ForEach(0..<rows, id: \.self) { row in
-                HStack {
-                    ForEach(0..<columns, id: \.self) { column in
-                        content(row, column)
+        ZStack {
+            ContainerRelativeShape()
+                .fill(.blue.gradient)
+                .ignoresSafeArea()
+
+            VStack {
+                ForEach(0..<rows, id: \.self) { row in
+                    HStack {
+                        ForEach(0..<columns, id: \.self) { column in
+                            content(row, column)
+                        }
                     }
                 }
             }
@@ -32,8 +38,10 @@ struct ContentView: View {
                 Image(systemName: "\(row * 4 + col).circle")
                 Text("R\(row) C\(col)")
             }
-            .frame(width: 50, height: 50)
-            .background(.purple)
+            .frame(width: 60, height: 60)
+            .background(.purple.gradient)
+            .font(.title3)
+            .foregroundStyle(.white)
         }
     }
 }
